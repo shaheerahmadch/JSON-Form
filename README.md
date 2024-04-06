@@ -2,6 +2,8 @@
 
 The **JSONViewForm** PCF (Power Apps Component Framework) control is designed to dynamically render form elements based on JSON data. It provides a flexible way to visualize and interact with JSON data within Power Apps.
 
+![Preview](./Assets/Preview.png)
+
 ## Features
 
 - Dynamically generates form elements based on JSON data.
@@ -57,3 +59,7 @@ The **JSONViewForm** PCF control is licensed under the [MIT License](LICENSE).
 ## Author
 
 This PCF control is authored by [Shaheer Ahmad](https://github.com/shaheerahmadch).
+
+
+
+![Properties](./Assets/Properties.png)
