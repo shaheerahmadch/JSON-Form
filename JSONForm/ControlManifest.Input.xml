@@ -9,6 +9,7 @@
       <value name="On" display-name-key="On" description-key="Display active records only.">1</value>
     </property>
     <property name="HeadingsFontSize" display-name-key="Headings Font Size" description-key="Headings Font Size" of-type="Whole.None" usage="input" required="true" />
+    <property name="Margins" display-name-key="Margins" description-key="Margins" of-type="Whole.None" usage="input" required="true" />
     <property name="BackgroundColor" display-name-key="Background Color" description-key="Background Color" of-type="SingleLine.Text" usage="input" required="true" />
     <property name="ValuesFontSize" display-name-key="Values Font Size" description-key="Values Font Size" of-type="Whole.None" usage="input" required="true" />
     <property name="SelectedProperties" display-name-key="Selected Properties" description-key="Selected Properties" of-type="SingleLine.Text" usage="input" required="true" />

@@ -10,6 +10,7 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
     private _selectedProperties: string | '';
     private _backgroundColor: string | '';
     private _headingsFontSize: number | null;
+    private _margins: number | null;
     private _valuesFontSize: number | null;
     private _enableShadows: boolean;
 
@@ -26,6 +27,7 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
         this._enableShadows = context.parameters.Shadows.raw == "1";
         this._selectedProperties = context.parameters.SelectedProperties.raw || '';
         this._headingsFontSize = context.parameters.HeadingsFontSize.raw ? context.parameters.HeadingsFontSize.raw : 15 ;
+        this._margins = context.parameters.Margins.raw ? context.parameters.Margins.raw : 30 ;
         this._valuesFontSize = context.parameters.ValuesFontSize.raw ? context.parameters.ValuesFontSize.raw : 15 ;
         this._backgroundColor = context.parameters.BackgroundColor.raw ? context.parameters.BackgroundColor.raw : 'white' ;
 
@@ -41,6 +43,7 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
         this._backgroundColor = context.parameters.BackgroundColor.raw ? context.parameters.BackgroundColor.raw : 'white' ;
         this._headingsFontSize = context.parameters.HeadingsFontSize.raw ? context.parameters.HeadingsFontSize.raw : 15 ;
         this._valuesFontSize = context.parameters.ValuesFontSize.raw ? context.parameters.ValuesFontSize.raw : 15 ;
+        this._margins = context.parameters.Margins.raw ? context.parameters.Margins.raw : 30 ;
         this._container.style.overflow = "scroll";
         this._container.style.backgroundColor = this._backgroundColor;
         this._container.style.height = `${context.mode.allocatedHeight - 8}px`;
@@ -79,6 +82,7 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
             const jsonData = JSON.parse(this._jsonInput);
             const form = document.createElement('form');
             form.className = "JSONViewForm";
+            form.style.margin = this._margins+'px';
     
             let propertiesToDisplay: string[];
     

@@ -27,6 +27,7 @@ To use the **JSONViewForm** PCF control in your Power Apps environment, follow t
 - **BackgroundColor**: (Optional) The color value for form background.
 - **HeadingsFontSize**: (Optional) The font size for form headings.
 - **ValuesFontSize**: (Optional) The font size for form Values.
+- **Margins**: (Optional) Specifies the form margins.
 - **Shadows**: Shadow option for form inputs. Default = Off.
 
 ### Example
