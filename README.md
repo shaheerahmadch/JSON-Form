@@ -14,7 +14,7 @@ The **JSONViewForm** PCF (Power Apps Component Framework) control is designed to
 
 To use the **JSONViewForm** PCF control in your Power Apps environment, follow these steps:
 
-1. Build the PCF control using the provided source code.
+1. Build the PCF control using the provided source code. Or download solution from [here](./Solution/JSONForm.zip)
 2. Import the control solution into your Power Apps environment.
 3. Add the control to your desired app screen or form.
 

@@ -44,7 +44,8 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
         this._headingsFontSize = context.parameters.HeadingsFontSize.raw ? context.parameters.HeadingsFontSize.raw : 15 ;
         this._valuesFontSize = context.parameters.ValuesFontSize.raw ? context.parameters.ValuesFontSize.raw : 15 ;
         this._margins = context.parameters.Margins.raw ? context.parameters.Margins.raw : 30 ;
-        this._container.style.overflow = "scroll";
+        this._container.style.overflowY = "scroll";
+        this._container.style.overflowX = "hidden";
         this._container.style.backgroundColor = this._backgroundColor;
         this._container.style.height = `${context.mode.allocatedHeight - 8}px`;
         this._container.style.width = `${context.mode.allocatedWidth - 8}px`;
