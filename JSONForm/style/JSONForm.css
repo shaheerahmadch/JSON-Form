@@ -1,0 +1,83 @@
+/* Container styles */
+.JSONViewFormContainer {
+    overflow-y: auto;
+    border: 1px solid #edebe9;
+    padding: 10px;
+}
+
+/* Form styles */
+.JSONViewForm {
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* Input styles */
+.JSONViewInput {
+    width: calc(100% - 16px);
+    box-sizing: border-box;
+    padding: 8px;
+    margin-bottom: 16px;
+    margin-top: 16px;
+    border: 1px solid #edebe9;
+    border-radius: 4px;
+}
+
+/* Checkbox styles */
+.JSONViewInput[type="checkbox"] {
+    width: auto;
+}
+
+/* Submit button styles */
+.JSONViewInput[type="submit"] {
+    padding: 10px 20px;
+    background-color: #0078d4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.JSONViewInput[type="submit"]:hover {
+    background-color: #005a9e;
+}
+
+/* Hover effect for input elements */
+.JSONViewInput:hover {
+    background-color: #f3f2f1;
+}
+
+/* Active effect for input elements */
+.JSONViewInput:active {
+    background-color: #e1dfdd;
+}
+
+/* Nested form styles */
+.nestedForm {
+    margin-left: 20px;
+}
+
+/* Array container styles */
+.arrayContainer {
+    margin-left: 20px;
+}
+
+/* Array item container styles */
+.arrayItemContainer {
+    margin-top: 5px;
+}
+
+/* Top-level label styles */
+.JSONViewLabel {
+    margin-bottom: 8px;
+    margin-top: 8px;
+    display: block;
+    font-weight: bold;
+    text-align: left;
+}
+
+/* Nested label styles */
+.nestedLabel {
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

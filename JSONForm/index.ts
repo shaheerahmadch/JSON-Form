@@ -1,53 +1,175 @@
 import { IInputs, IOutputs } from "./generated/ManifestTypes";
+import './style/JSONForm.css'
 
 export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 
-    /**
-     * Empty constructor.
-     */
-    constructor()
-    {
+    private _container: HTMLDivElement;
+    private _context: ComponentFramework.Context<IInputs>;
+    private _notifyOutputChanged: () => void;
+    private _jsonInput: string = '';
+    private _selectedProperties: string | '';
+    private _backgroundColor: string | '';
+    private _headingsFontSize: number | null;
+    private _valuesFontSize: number | null;
+    private _enableShadows: boolean;
 
+    constructor() { }
+
+    public init(context: ComponentFramework.Context<IInputs>, notifyOutputChanged: () => void, state: ComponentFramework.Dictionary, container: HTMLDivElement): void {
+        this._container = container;
+        context.mode.trackContainerResize(true);
+        this._context = context;
+        this._notifyOutputChanged = notifyOutputChanged;
+
+        // Set up initial data
+        this._jsonInput = context.parameters.JSONInput.raw || '';
+        this._enableShadows = context.parameters.Shadows.raw == "1";
+        this._selectedProperties = context.parameters.SelectedProperties.raw || '';
+        this._headingsFontSize = context.parameters.HeadingsFontSize.raw ? context.parameters.HeadingsFontSize.raw : 15 ;
+        this._valuesFontSize = context.parameters.ValuesFontSize.raw ? context.parameters.ValuesFontSize.raw : 15 ;
+        this._backgroundColor = context.parameters.BackgroundColor.raw ? context.parameters.BackgroundColor.raw : 'white' ;
+
+        // Render the control
+        this.renderControl();
+        this._notifyOutputChanged()
     }
 
-    /**
-     * Used to initialize the control instance. Controls can kick off remote server calls and other initialization actions here.
-     * Data-set values are not initialized here, use updateView.
-     * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to property names defined in the manifest, as well as utility functions.
-     * @param notifyOutputChanged A callback method to alert the framework that the control has new outputs ready to be retrieved asynchronously.
-     * @param state A piece of data that persists in one session for a single user. Can be set at any point in a controls life cycle by calling 'setControlState' in the Mode interface.
-     * @param container If a control is marked control-type='standard', it will receive an empty div element within which it can render its content.
-     */
-    public init(context: ComponentFramework.Context<IInputs>, notifyOutputChanged: () => void, state: ComponentFramework.Dictionary, container:HTMLDivElement): void
-    {
-        // Add control initialization code
+    public updateView(context: ComponentFramework.Context<IInputs>): void {
+        
+        this._enableShadows = context.parameters.Shadows.raw == "1";
+        this._selectedProperties = context.parameters.SelectedProperties.raw || '';
+        this._backgroundColor = context.parameters.BackgroundColor.raw ? context.parameters.BackgroundColor.raw : 'white' ;
+        this._headingsFontSize = context.parameters.HeadingsFontSize.raw ? context.parameters.HeadingsFontSize.raw : 15 ;
+        this._valuesFontSize = context.parameters.ValuesFontSize.raw ? context.parameters.ValuesFontSize.raw : 15 ;
+        this._container.style.overflow = "scroll";
+        this._container.style.backgroundColor = this._backgroundColor;
+        this._container.style.height = `${context.mode.allocatedHeight - 8}px`;
+        this._container.style.width = `${context.mode.allocatedWidth - 8}px`;
+        // Update data
+        //this._jsonInput = context.parameters.JSONInput.raw || '';
+
+        // Re-render the control
+        this.renderControl();
     }
 
-
-    /**
-     * Called when any value in the property bag has changed. This includes field values, data-sets, global values such as container height and width, offline status, control metadata values such as label, visible, etc.
-     * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names defined in the manifest, as well as utility functions
-     */
-    public updateView(context: ComponentFramework.Context<IInputs>): void
-    {
-        // Add code to update control view
+    public getOutputs(): IOutputs {
+        // Return the updated JSON output
+        return {
+            JSONOutput: this._jsonInput
+        };
     }
 
-    /**
-     * It is called by the framework prior to a control receiving new data.
-     * @returns an object based on nomenclature defined in manifest, expecting object[s] for property marked as "bound" or "output"
-     */
-    public getOutputs(): IOutputs
-    {
-        return {};
+    public destroy(): void {
+        // Cleanup
     }
 
-    /**
-     * Called when the control is to be removed from the DOM tree. Controls should use this call for cleanup.
-     * i.e. cancelling any pending remote calls, removing listeners, etc.
-     */
-    public destroy(): void
-    {
-        // Add code to cleanup control if necessary
+    private renderControl(): void {
+        // Clear previous content
+        this._container.innerHTML = '';
+    
+        if (!this._jsonInput) {
+            // If JSON input is empty, show a message
+            const message = document.createElement('div');
+            message.innerText = 'No JSON data provided.';
+            this._container.appendChild(message);
+            return;
+        }
+    
+        try {
+            const jsonData = JSON.parse(this._jsonInput);
+            const form = document.createElement('form');
+            form.className = "JSONViewForm";
+    
+            let propertiesToDisplay: string[];
+    
+            // Check if SelectedProperties parameter is provided and not empty
+            if (this._selectedProperties && this._selectedProperties.trim() !== ''&& this._selectedProperties.trim() !== 'val') {
+                // Split the comma-separated string into an array of property names
+                const selectedProps = this._selectedProperties.split(',').map(prop => prop.trim());
+    
+                // Filter the properties of jsonData based on the selected properties
+                propertiesToDisplay = Object.keys(jsonData).filter(key => selectedProps.includes(key));
+            } else {
+                // If SelectedProperties parameter is blank, display all properties from the input JSON
+                propertiesToDisplay = Object.keys(jsonData);
+            }
+    
+            // Create form elements dynamically based on the selected properties
+            propertiesToDisplay.forEach(key => {
+                const value = jsonData[key];
+    
+                const label = document.createElement('label');
+                label.style.fontSize = this._headingsFontSize + 'px';
+                label.innerText = this.toTitleCase(key);
+                label.className = "JSONViewLabel";
+        
+                const input = document.createElement('input');
+                input.style.boxShadow = this._enableShadows? 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px':'';
+                input.className = "JSONViewInput";
+                input.style.backgroundColor = 'white';
+                input.style.fontSize = this._valuesFontSize + 'px';
+                input.id = key;
+                let datatype = typeof value === 'boolean' ? 'checkbox' : typeof value === 'number' ? 'number' : 'text';
+                
+                datatype = datatype === 'text' && this.isDateString(String(value)) ? 'date' : 'text'; 
+                input.type = datatype;
+    
+                input.value = String(value);
+    
+                // Add event listener to input elements to update JSON data
+                input.addEventListener('change', () => {
+                    this.updateJsonData(key, typeof value === 'boolean' ? input.checked : input.value, datatype);
+                });
+    
+                form.appendChild(label);
+                form.appendChild(input);
+                form.appendChild(document.createElement('br'));
+            });
+    
+            this._container.appendChild(form);
+        } catch (error) {
+            // If JSON parsing fails, show an error message
+            const errorMessage = document.createElement('div');
+            errorMessage.innerText = 'Invalid JSON format.';
+            this._container.appendChild(errorMessage);
+            console.log(error)
+        }
     }
+    
+    private isDateString(sDate:string) {
+        const newDate = new Date(sDate);
+        return !isNaN(newDate.getTime());
+      }
+
+    private  toTitleCase(str:string) {
+        return str.replace(
+          /\w\S*/g,
+          function(txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+          }
+        );
+      }
+      private updateJsonData(key: string, value: string | boolean | number, dataype:string): void {
+        try {
+            console.log('changed')
+            console.log(dataype)
+            if (dataype === 'number' && parseFloat(value as string)) {
+                value = parseFloat(value as string);
+            }
+            const jsonData = JSON.parse(this._jsonInput);
+            let updatedValue: any = value; // Initialize the updated value    
+            jsonData[key] = updatedValue; // Update the value in the JSON object
+            const updatedJsonInput = JSON.stringify(jsonData);
+    
+            // Notify the framework that output has changed only if the JSON input has actually changed
+            if (updatedJsonInput !== this._jsonInput) {
+                this._jsonInput = updatedJsonInput;
+                this._notifyOutputChanged();
+            }
+        } catch (error) {
+            console.error('Error updating JSON data:', error);
+        }
+    }
+    
+    
 }
