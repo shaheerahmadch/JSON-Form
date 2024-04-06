@@ -110,11 +110,10 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
                 input.style.fontSize = this._valuesFontSize + 'px';
                 input.id = key;
                 let datatype = typeof value === 'boolean' ? 'checkbox' : typeof value === 'number' ? 'number' : 'text';
-                
-                datatype = datatype === 'text' && this.isDateString(String(value)) ? 'date' : 'text'; 
+                datatype = datatype === 'text' && this.isDateString(String(value)) ? 'date' : datatype; 
                 input.type = datatype;
-    
-                input.value = String(value);
+                let inputValue = datatype === 'date' ? `${new Date(value).getFullYear()}-${(new Date(value).getMonth() + 1).toString().padStart(2, '0')}-${new Date(value).getDate().toString().padStart(2, '0')}` : String(value); 
+                input.value = String(inputValue);
     
                 // Add event listener to input elements to update JSON data
                 input.addEventListener('change', () => {
