@@ -47,8 +47,8 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
         this._container.style.overflowY = "scroll";
         this._container.style.overflowX = "hidden";
         this._container.style.backgroundColor = this._backgroundColor;
-        this._container.style.height = `${context.mode.allocatedHeight - 8}px`;
-        this._container.style.width = `${context.mode.allocatedWidth - 8}px`;
+        this._container.style.height = `${context.mode.allocatedHeight - 0}px`;
+        this._container.style.width = `${context.mode.allocatedWidth - 0}px`;
         // Update data
         //this._jsonInput = context.parameters.JSONInput.raw || '';
 
