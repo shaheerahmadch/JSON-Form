@@ -70,4 +70,4 @@ This PCF control is authored by [Shaheer Ahmad](https://github.com/shaheerahmadc
 
 
 
-![Properties](./Assets/Properties.png)
+![Properties](./Assets/Preview.png)
