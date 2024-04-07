@@ -15,17 +15,21 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
     private _valuesFontSize: number | null;
     private _enableShadows: boolean;
     private _isReset: boolean;
+    private _currentEvent: string | '';
 
     constructor() { }
 
     public init(context: ComponentFramework.Context<IInputs>, notifyOutputChanged: () => void, state: ComponentFramework.Dictionary, container: HTMLDivElement): void {
+        this._currentEvent = 'FormLoaded';
         this._container = container;
         context.mode.trackContainerResize(true);
         this._context = context;
         this._notifyOutputChanged = notifyOutputChanged;
         this._state = state;
         this._isReset = context.parameters.Reset.raw;
-
+        if(this._isReset){
+            this._currentEvent='FormReset'
+        }
         // Set up initial data
         this._jsonInput = context.parameters.JSONInput.raw || '';
         this._enableShadows = context.parameters.Shadows.raw == "1";
@@ -66,7 +70,8 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
     public getOutputs(): IOutputs {
         // Return the updated JSON output
         return {
-            JSONOutput: this._jsonInput
+            JSONOutput: this._jsonInput,
+            CurrentEvent: this._currentEvent
         };
     }
 
@@ -130,6 +135,10 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
                 // Add event listener to input elements to update JSON data
                 input.addEventListener('change', () => {
                     this.updateJsonData(key, typeof value === 'boolean' ? input.checked : input.value, datatype);
+                    this._currentEvent = 'ValueChanged';
+                });
+                input.addEventListener('click', () => {
+                    this._currentEvent = 'ItemSelected';
                 });
     
                 form.appendChild(label);
