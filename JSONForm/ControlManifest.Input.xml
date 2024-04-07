@@ -14,10 +14,12 @@
     </property>
     <property name="Reset" display-name-key="Reset" description-key="Reset from start" of-type="TwoOptions" usage="input" required="false" default-value="false"/>
     <property name="HeadingsFontSize" display-name-key="Headings Font Size" description-key="Headings Font Size" of-type="Whole.None" usage="input" required="true" />
+    <property name="ValuesFontSize" display-name-key="Values Font Size" description-key="Values Font Size" of-type="Whole.None" usage="input" required="true" />
     <property name="Margins" display-name-key="Margins" description-key="Margins" of-type="Whole.None" usage="input" required="true" />
     <property name="FormFill" display-name-key="Form Fill" description-key="Form Fill" of-type="SingleLine.Text" usage="input" required="true" />
+    <property name="InputFill" display-name-key="Input Fill" description-key="Input Fill" of-type="SingleLine.Text" usage="input" required="true" />
     <property name="HeadingsColor" display-name-key="Headings Color" description-key="Headings Color" of-type="SingleLine.Text" usage="input" required="true" />
-    <property name="ValuesFontSize" display-name-key="Values Font Size" description-key="Values Font Size" of-type="Whole.None" usage="input" required="true" />
+    <property name="ValuesColor" display-name-key="Values Color" description-key="Values Color" of-type="SingleLine.Text" usage="input" required="true" />
     <property name="SelectedProperties" display-name-key="Selected Properties" description-key="Selected Properties" of-type="SingleLine.Text" usage="input" required="true" />
     <property name="JSONOutput" display-name-key="JSON Output" description-key="JSON Output" of-type="SingleLine.Text" usage="output" />
     <property name="CurrentEvent" display-name-key="Current Event" description-key="Current Event" of-type="SingleLine.Text" usage="output" />
