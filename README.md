@@ -31,6 +31,7 @@ To use the **JSONViewForm** PCF control in your Power Apps environment, follow t
 - **ValuesFontSize**: (Optional) The font size for form Values.
 - **Margins**: (Optional) Specifies the form margins.
 - **Shadows**: Shadow option for form inputs. Default = Off.
+- **Reset**: Boolean parameter to reset the control.
 
 ### Example
 
