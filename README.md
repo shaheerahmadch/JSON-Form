@@ -26,7 +26,7 @@ To use the **JSONViewForm** PCF control in your Power Apps environment, follow t
 
 - **JSONInput**: The JSON data input used to dynamically generate the form.
 - **SelectedProperties**: (Optional) Comma-separated list of property names from the JSON input. If provided, only these properties will be displayed on the form.
-- **BackgroundColor**: (Optional) The color value for form background.
+- **FormFill**: (Optional) The color value for form background.
 - **HeadingsFontSize**: (Optional) The font size for form headings.
 - **ValuesFontSize**: (Optional) The font size for form Values.
 - **Margins**: (Optional) Specifies the form margins.

@@ -10,6 +10,7 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
     private _jsonInput: string = '';
     private _selectedProperties: string | '';
     private _backgroundColor: string | '';
+    private _headingsColor: string | '';
     private _headingsFontSize: number | null;
     private _margins: number | null;
     private _valuesFontSize: number | null;
@@ -43,7 +44,8 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
         this._headingsFontSize = context.parameters.HeadingsFontSize.raw ? context.parameters.HeadingsFontSize.raw : 15;
         this._margins = context.parameters.Margins.raw ? context.parameters.Margins.raw : 30;
         this._valuesFontSize = context.parameters.ValuesFontSize.raw ? context.parameters.ValuesFontSize.raw : 15;
-        this._backgroundColor = context.parameters.BackgroundColor.raw ? context.parameters.BackgroundColor.raw : 'white';
+        this._backgroundColor = context.parameters.FormFill.raw ? context.parameters.FormFill.raw : 'white';
+        this._headingsColor = context.parameters.HeadingsColor.raw ? context.parameters.HeadingsColor.raw : '#5b5b5b';
 
         // Render the control
         this.renderControl();
@@ -59,7 +61,8 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
         this._enableCopy = context.parameters.AllowCopy.raw == "1";
         this._enableShadows = context.parameters.Shadows.raw == "1";
         this._selectedProperties = context.parameters.SelectedProperties.raw || '';
-        this._backgroundColor = context.parameters.BackgroundColor.raw ? context.parameters.BackgroundColor.raw : 'white';
+        this._backgroundColor = context.parameters.FormFill.raw ? context.parameters.FormFill.raw : 'white';
+        this._headingsColor = context.parameters.HeadingsColor.raw ? context.parameters.HeadingsColor.raw : '#5b5b5b';
         this._headingsFontSize = context.parameters.HeadingsFontSize.raw ? context.parameters.HeadingsFontSize.raw : 15;
         this._valuesFontSize = context.parameters.ValuesFontSize.raw ? context.parameters.ValuesFontSize.raw : 15;
         this._margins = context.parameters.Margins.raw ? context.parameters.Margins.raw : 30;
@@ -145,6 +148,7 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
                 label.style.fontSize = this._headingsFontSize + 'px';
                 label.innerText = this.toTitleCase(key);
                 label.className = "JSONViewLabel";
+                label.style.color = this._headingsColor;
 
                 const input = document.createElement('input');
                 input.style.boxShadow = this._enableShadows ? 'rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px' : '';
