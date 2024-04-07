@@ -29,9 +29,9 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
         this._context = context;
         this._notifyOutputChanged = notifyOutputChanged;
         this._state = state;
-        this._isReset = context.parameters.Reset.raw;
-        if (this._isReset) {
+        if (this._isReset != context.parameters.Reset.raw) {
             this._currentEvent = 'FormReset'
+            this._isReset = context.parameters.Reset.raw;
         }
         this._currentValue = '';
         this._currentKey = '';
@@ -51,9 +51,10 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
     }
 
     public updateView(context: ComponentFramework.Context<IInputs>): void {
-        this._isReset = context.parameters.Reset.raw;
-        if (this._isReset) {
+        
+        if (this._isReset != context.parameters.Reset.raw) {
             this.init(this._context, this._notifyOutputChanged, this._state, this._container)
+            //this._isReset = context.parameters.Reset.raw;
         }
         this._enableCopy = context.parameters.AllowCopy.raw == "1";
         this._enableShadows = context.parameters.Shadows.raw == "1";
