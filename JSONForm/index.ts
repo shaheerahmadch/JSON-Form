@@ -4,6 +4,7 @@ import './style/JSONForm.css'
 export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOutputs> {
 
     private _container: HTMLDivElement;
+    private _state: ComponentFramework.Dictionary;
     private _context: ComponentFramework.Context<IInputs>;
     private _notifyOutputChanged: () => void;
     private _jsonInput: string = '';
@@ -13,6 +14,7 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
     private _margins: number | null;
     private _valuesFontSize: number | null;
     private _enableShadows: boolean;
+    private _isReset: boolean;
 
     constructor() { }
 
@@ -21,6 +23,8 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
         context.mode.trackContainerResize(true);
         this._context = context;
         this._notifyOutputChanged = notifyOutputChanged;
+        this._state = state;
+        this._isReset = context.parameters.Reset.raw;
 
         // Set up initial data
         this._jsonInput = context.parameters.JSONInput.raw || '';
@@ -37,7 +41,10 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
     }
 
     public updateView(context: ComponentFramework.Context<IInputs>): void {
-        
+        this._isReset = context.parameters.Reset.raw;
+        if(this._isReset){
+            this.init(this._context,this._notifyOutputChanged,this._state,this._container)
+        }
         this._enableShadows = context.parameters.Shadows.raw == "1";
         this._selectedProperties = context.parameters.SelectedProperties.raw || '';
         this._backgroundColor = context.parameters.BackgroundColor.raw ? context.parameters.BackgroundColor.raw : 'white' ;
