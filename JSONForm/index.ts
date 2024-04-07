@@ -16,6 +16,8 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
     private _enableShadows: boolean;
     private _isReset: boolean;
     private _currentEvent: string | '';
+    private _currentKey: string | '';
+    private _currentValue: string | '';
 
     constructor() { }
 
@@ -30,6 +32,8 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
         if(this._isReset){
             this._currentEvent='FormReset'
         }
+        this._currentValue = '';
+        this._currentKey = '';
         // Set up initial data
         this._jsonInput = context.parameters.JSONInput.raw || '';
         this._enableShadows = context.parameters.Shadows.raw == "1";
@@ -71,7 +75,9 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
         // Return the updated JSON output
         return {
             JSONOutput: this._jsonInput,
-            CurrentEvent: this._currentEvent
+            CurrentEvent: this._currentEvent,
+            CurrentKey:this._currentKey,
+            CurrentValue:this._currentValue
         };
     }
 
@@ -134,11 +140,10 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
     
                 // Add event listener to input elements to update JSON data
                 input.addEventListener('change', () => {
-                    this.updateJsonData(key, typeof value === 'boolean' ? input.checked : input.value, datatype);
                     this._currentEvent = 'ValueChanged';
-                });
-                input.addEventListener('click', () => {
-                    this._currentEvent = 'ItemSelected';
+                    this._currentKey = key;
+                    this._currentValue = String(input.value);
+                    this.updateJsonData(key, typeof value === 'boolean' ? input.checked : input.value, datatype);
                 });
     
                 form.appendChild(label);

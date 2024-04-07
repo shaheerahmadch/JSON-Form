@@ -16,6 +16,8 @@
     <property name="SelectedProperties" display-name-key="Selected Properties" description-key="Selected Properties" of-type="SingleLine.Text" usage="input" required="true" />
     <property name="JSONOutput" display-name-key="JSON Output" description-key="JSON Output" of-type="SingleLine.Text" usage="output" />
     <property name="CurrentEvent" display-name-key="Current Event" description-key="Current Event" of-type="SingleLine.Text" usage="output" />
+    <property name="CurrentKey" display-name-key="Current Key" description-key="Current Key" of-type="SingleLine.Text" usage="output" />
+    <property name="CurrentValue" display-name-key="Current Value" description-key="Current Value" of-type="SingleLine.Text" usage="output" />
     <resources>
       <code path="index.ts" order="1"/>
     </resources>

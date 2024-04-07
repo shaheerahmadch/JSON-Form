@@ -32,6 +32,9 @@ To use the **JSONViewForm** PCF control in your Power Apps environment, follow t
 - **Margins**: (Optional) Specifies the form margins.
 - **Shadows**: Shadow option for form inputs. Default = Off.
 - **Reset**: Boolean parameter to reset the control.
+- **CurrentEvent**: Output Property to output the current form event (FormLoaded,FormReset,ValueChanged).
+- **CurrentKey**: Output Property to output the current key changed.
+- **CurrentValue**: Output Property to output the current value changed.
 
 ### Example
 
