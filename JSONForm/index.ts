@@ -186,6 +186,7 @@ export class JSONForm implements ComponentFramework.StandardControl<IInputs, IOu
     }
     private copyJSONToClipboard(){
         navigator.clipboard.writeText(this._jsonInput)
+        this._notifyOutputChanged();
     }
 
     private toTitleCase(str: string) {
